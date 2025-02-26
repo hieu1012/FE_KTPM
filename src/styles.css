@@ -5,3 +5,28 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #f3f4f6;
 }
+
+/* Với trình duyệt WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 6px;
+    /* Độ rộng thanh cuộn dọc */
+    height: 6px;
+    /* Độ rộng thanh cuộn ngang */
+}
+
+/* Màu nền của thanh cuộn */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Màu thanh kéo (scroll thumb) */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+/* Khi hover vào thanh cuộn */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

@@ -1,0 +1,50 @@
+<!-- shop.component.html
+<div class="container">
+  <div>About Us</div>
+  <div class="section-black ">
+    <div class="content">
+      <p class="title">{{title}}</p>
+      <p class="description">{{description}}</p>
+    </div>
+    <div class="">
+      <img class="photo" [src]="shopImagePath" alt="Computer Shop Interior">
+    </div>
+  </div>
+  <div class="section-white ">
+    <div class="">
+      <img class="photo" [src]="shopImagePath" alt="Computer Shop Interior">
+    </div>
+    <div class="content">
+      <p class="title">{{title}}</p>
+      <p class="description">{{description}}</p>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div>About Us</div>
+
+  <div *ngFor="let item of aboutUs">
+    <!-- Nếu id lẻ thì section đen -->
+    <div class="section-black" *ngIf="item.id % 2 !== 0">
+      <div class="content">
+        <p class="title">{{ item.title }}</p>
+        <p class="description">{{ item.description }}</p>
+      </div>
+      <div>
+        <img class="photo" [src]="item.shopImagePath" alt="Computer Shop Interior">
+      </div>
+    </div>
+
+    <!-- Nếu id chẵn thì section trắng -->
+    <div class="section-white" *ngIf="item.id % 2 === 0">
+      <div>
+        <img class="photo-white" [src]="item.shopImagePath" alt="Computer Shop Interior">
+      </div>
+      <div class="content">
+        <p class="title">{{ item.title }}</p>
+        <p class="description">{{ item.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

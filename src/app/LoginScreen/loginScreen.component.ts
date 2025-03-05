@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ROUTING } from '/KienTrucPhanMem/project-ktpm/src/constants/routing'
 
 
 @Component({
@@ -9,7 +10,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './loginScreen.component.html',
   styleUrl: './loginScreen.component.css'
 })
-export class LoginScreen {
+export class LoginScreen implements OnInit {
   email: string = '';
   password: string = '';
 
@@ -21,6 +22,12 @@ export class LoginScreen {
   onCreateAccount() {
     // Implement create account logic
     console.log('Create Account');
+  }
 
+  ROUTING = ROUTING
+
+  ngOnInit() {
+    // cuộn đến đầu trang
+    window.scrollTo(0, 0);
   }
 }

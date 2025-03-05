@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ROUTING } from '@constants/routing'
 
 @Component({
   selector: 'header',
@@ -8,6 +9,6 @@ import { RouterModule } from '@angular/router';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-
+  ROUTING = ROUTING
 
 }

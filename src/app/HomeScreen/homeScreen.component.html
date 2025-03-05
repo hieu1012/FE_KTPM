@@ -1,0 +1,18 @@
+<!-- <div class="">
+    <div class="banner-slide  px-40">
+        <div *ngFor="let slide of slides" class="banner-slide-item justify-center items-center flex">
+            <img class=" w-full h-40  " [src]="slide.src" alt="banner">
+        </div>
+    </div>
+</div> -->
+
+<c-carousel [interval]="1000" transition="slide">
+    <c-carousel-inner>
+        <c-carousel-item *ngFor="let slide of slides">
+            <div class="banner-slide-item justify-center items-center flex  px-40">
+                <img class=" w-full h-60  " [src]="slide.src" alt="banner">
+            </div>
+        </c-carousel-item>
+    </c-carousel-inner>
+</c-carousel>
+<div class="mb-60"></div>

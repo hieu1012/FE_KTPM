@@ -18,7 +18,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 80px;
+    padding: 0 160px;
 }
 
 .phone-number-and-social-icons {
@@ -41,34 +41,35 @@
     height: 60px;
     justify-content: space-between;
     align-items: center;
-    padding: 0 80px;
+    padding: 0 160px;
 }
 
 .logo {
     height: 40px;
+    margin-right: 40px;
 }
 
 .nav-menu {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
 }
 
 .nav-item {
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 .deals-button {
     width: 110px;
     height: 40px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     border-radius: 50px;
 }
 
 .icon-wrapper-and-avatar {
-    width: 200px;
+    width: 180px;
     justify-content: space-between;
     align-items: center;
 }

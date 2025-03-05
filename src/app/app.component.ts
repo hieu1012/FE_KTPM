@@ -3,8 +3,8 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './shared/Footer/footer.component';
 import { HeaderComponent } from './shared/Header/header.component';
 import { AboutComponent } from './shared/About-Us/about.component';
-import { LoginScreen } from './shared/LoginScreen/loginScreen.component';
-import { RegisterScreen } from './shared/RegisterScreen/registerScreen.component';
+import { LoginScreen } from './LoginScreen/loginScreen.component';
+import { RegisterScreen } from './RegisterScreen/registerScreen.component';
 
 @Component({
   selector: 'app-root',

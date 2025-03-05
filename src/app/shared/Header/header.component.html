@@ -27,14 +27,14 @@
   <div class="main-header ">
     <div class="flex">
       <img class="logo" src="assets/images/logo.png" alt="logo">
-      <ul class="nav-menu ml-18">
-        <li class="nav-item">Laptops<a href="" class="nav-link"></a></li>
+      <ul class="nav-menu">
+        <li [routerLink]="['/']" class="nav-item">Home<a href="" class="nav-link"></a></li>
         <li class="nav-item">Desktop PCs<a href="" class="nav-link"></a></li>
         <li class="nav-item">Networking Devices<a href="" class="nav-link"></a></li>
         <li class="nav-item">Printers & Scanners<a href="" class="nav-link"></a></li>
         <li class="nav-item">PC Parts<a href="" class="nav-link"></a></li>
         <li class="nav-item">All Other Products<a href="" class="nav-link"></a></li>
-        <li class="nav-item">Repairs<a href="" class="nav-link"></a></li>
+        <li [routerLink]="['/',ROUTING.ABOUT_SCREEN]" class="nav-item">About Us<a href="" class="nav-link"></a></li>
       </ul>
       <button class="deals-button border-2 border-blue-500 text-blue-500  ">Our Deals</button>
     </div>
@@ -46,9 +46,10 @@
           src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/anh-avatar-cute-58.jpg" alt="anh">
       </div> -->
       <div class="flex ">
-        <button class="mx-1">Login</button>
-        <span class="text-stone-400">|</span>
-        <button class="mx-1">Register</button>
+
+        <button [routerLink]="['/', ROUTING.LOGIN_SCREEN]" class="text-sm mx-1 cursor-pointer">Login </button>
+        <span class="text-stone-400 text-ms">|</span>
+        <button [routerLink]="['/', ROUTING.REGISTER_SCREEN]" class="text-sm mx-1 cursor-pointer">Register</button>
       </div>
     </div>
   </div>

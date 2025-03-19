@@ -39,24 +39,32 @@
       <button class="deals-button border-2 border-blue-500 text-blue-500  ">Our Deals</button>
     </div>
     <div class="icon-wrapper-and-avatar flex ">
-      <i class="fa-solid fa-search icon"></i>
-      <i class="fa-solid fa-shopping-cart icon"></i>
-      <!-- <div class="avatar-wrapper">
-        <img class="avatar-user"
-          src="https://cellphones.com.vn/sforum/wp-content/uploads/2024/02/anh-avatar-cute-58.jpg" alt="anh">
-      </div> -->
-      <div class="flex ">
-
+      <div class="flex justify-between">
+        <i class="fa-solid fa-search icon "></i>
+        <i class="fa-solid fa-shopping-cart icon"></i>
+      </div>
+      <!-- <div class="flex ">
         <button [routerLink]="['/', ROUTING.LOGIN_SCREEN]" class="text-sm mx-1 cursor-pointer">Login </button>
         <span class="text-stone-400 text-ms">|</span>
         <button [routerLink]="['/', ROUTING.REGISTER_SCREEN]" class="text-sm mx-1 cursor-pointer">Register</button>
+      </div> -->
+
+      <div class="flex" *ngIf="isLoggedIn else loginRegister">
+        <button [routerLink]="['/', ROUTING.HOME_SCREEN]" class="text-sm mx-1 cursor-pointer pl-2.5">
+          {{ userFullName}}
+        </button>
+        <span class="text-stone-400 text-ms">|</span>
+        <button (click)="logout()" class="text-sm mx-1 cursor-pointer">Logout</button>
       </div>
+      <ng-template #loginRegister>
+        <div class="flex">
+          <button [routerLink]="['/', ROUTING.LOGIN_SCREEN]" class="text-sm mx-1 cursor-pointer  pl-2.5">Login</button>
+          <span class="text-stone-400 text-ms">|</span>
+          <button [routerLink]="['/', ROUTING.REGISTER_SCREEN]" class="text-sm mx-1 cursor-pointer">Register</button>
+        </div>
+      </ng-template>
+
     </div>
   </div>
-
-
-
 </div>
-<div style="margin-bottom: 100px;">
-
-</div>
+<div style="margin-bottom: 100px;"></div>

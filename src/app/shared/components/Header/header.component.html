@@ -28,7 +28,7 @@
     <div class="flex">
       <img class="logo" src="assets/images/logo.png" alt="logo">
       <ul class="nav-menu">
-        <li [routerLink]="['/']" class="nav-item">Home<a href="" class="nav-link"></a></li>
+        <li [routerLink]="['/', ROUTING.HOME_SCREEN]" class="nav-item">Home<a href="" class="nav-link"></a></li>
         <li class="nav-item">Desktop PCs<a href="" class="nav-link"></a></li>
         <li class="nav-item">Networking Devices<a href="" class="nav-link"></a></li>
         <li class="nav-item">Printers & Scanners<a href="" class="nav-link"></a></li>
@@ -50,8 +50,8 @@
       </div> -->
 
       <div class="flex" *ngIf="isLoggedIn else loginRegister">
-        <button [routerLink]="['/', ROUTING.HOME_SCREEN]" class="text-sm mx-1 cursor-pointer pl-2.5">
-          {{ userFullName}}
+        <button class="text-sm mx-1 cursor-pointer pl-2.5">
+          {{ user.fullName}}
         </button>
         <span class="text-stone-400 text-ms">|</span>
         <button (click)="logout()" class="text-sm mx-1 cursor-pointer">Logout</button>

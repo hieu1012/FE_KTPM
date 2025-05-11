@@ -6,7 +6,11 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 
 import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './shared/services/token.interceptor';
+import { ProductService } from './shared/services/product.service';
 
 
 
@@ -15,8 +19,9 @@ export const appConfig: ApplicationConfig = {
   provideRouter(routes),
   provideClientHydration(withEventReplay()),
   provideAnimations(),
-  provideHttpClient(),
-
+  provideHttpClient(withInterceptorsFromDi()), // Thêm withInterceptorsFromDi()
+    ProductService,
+  { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
 };

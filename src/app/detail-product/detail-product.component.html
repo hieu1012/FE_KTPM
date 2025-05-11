@@ -1,0 +1,329 @@
+<!-- Main Content -->
+<main class="container mx-auto px-40 py-2">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        <!-- Product Images -->
+        <div class="bg-white rounded-xl p-4 shadow">
+            <div class="mb-3 flex items-center justify-center bg-gray-50 h-72 rounded-lg overflow-hidden">
+                <img src={{product.image}} alt="iPhone"
+                    class="max-h-full max-w-full object-contain hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="flex space-x-2 mt-3 overflow-x-auto">
+                <img class="h-16 w-16 border-2 border-blue-500 rounded-md object-contain"
+                    src="https://res.cloudinary.com/dzsr8gqhn/image/upload/v1746585941/r4nfdeauelnyrm7ahmv5.jpg" />
+                <img class="h-16 w-16 border rounded-md object-contain" src="/api/placeholder/400/320" />
+                <img class="h-16 w-16 border rounded-md object-contain" src="/api/placeholder/400/320" />
+                <img class="h-16 w-16 border rounded-md object-contain" src="/api/placeholder/400/320" />
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div class="bg-white rounded-xl p-5 shadow space-y-5">
+            <div>
+                <h1 class="text-xl font-semibold text-gray-800">{{product.name}}</h1>
+                <div class="flex items-center space-x-2 text-yellow-400 mt-1">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    <span class="text-sm text-gray-500 ml-2">129 đánh giá</span>
+                </div>
+                <div class="text-sm text-gray-600 mt-1">
+                    <span class="text-green-600 font-medium">Còn hàng: {{product.quantity}}</span> · Đã bán: 0
+                </div>
+            </div>
+
+            <div class="flex items-end space-x-2">
+                <div class="text-red-600 font-bold text-2xl">{{product.price}}</div>
+                <!-- <div class="line-through text-gray-400 text-base">220.000.000₫</div> -->
+                <!-- <span class="text-xs px-2 py-1 rounded bg-red-100 text-red-700 font-semibold">-9%</span> -->
+            </div>
+
+            <div class="text-sm space-y-1">
+                <p><span class="text-gray-500 w-24 inline-block">Danh mục:</span><a
+                        class="text-blue-600 hover:underline" href="#">{{product.category?.name}}</a></p>
+                <p><span class="text-gray-500 w-24 inline-block">Thương hiệu:</span><a
+                        class="text-blue-600 hover:underline" href="#">{{product.manufacture?.name}}</a></p>
+                <p><span class="text-gray-500 w-24 inline-block">Mô tả ngắn:</span>{{product.shortDesc}}</p>
+            </div>
+
+
+            <div>
+                <h3 class="text-sm font-medium mb-2">Chọn màu sắc</h3>
+                <div class="flex space-x-2">
+                    <button class="w-7 h-7 rounded-full bg-black border-2 border-gray-300"></button>
+                    <button class="w-7 h-7 rounded-full bg-white border-2 border-gray-300"></button>
+                    <button class="w-7 h-7 rounded-full bg-blue-600 border-2 border-blue-400"></button>
+                    <button class="w-7 h-7 rounded-full bg-gray-500 border-2 border-gray-300"></button>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center border rounded-md overflow-hidden">
+                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"><i class="fas fa-minus"></i></button>
+                    <input type="number" value="1" min="1"
+                        class="w-10 text-center border-x border-gray-200 py-1 text-sm focus:outline-none" />
+                    <button class="px-3 py-1 text-gray-600 hover:bg-gray-100"><i class="fas fa-plus"></i></button>
+                </div>
+                <button
+                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md text-sm font-medium">
+                    Thêm vào giỏ hàng
+                </button>
+            </div>
+
+            <button
+                class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md text-sm font-medium transition-all">
+                Mua ngay
+            </button>
+        </div>
+    </div>
+
+    <!-- Delivery Options -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm mb-10">
+        <h3 class="text-lg font-semibold mb-4">Thông tin vận chuyển</h3>
+        <div class="space-y-4">
+            <div class="flex">
+                <i class="fas fa-truck-fast text-blue-600 mt-1 mr-3"></i>
+                <div>
+                    <p class="font-medium">Giao hàng miễn phí</p>
+                    <p class="text-sm text-gray-500">Đơn hàng trên 500.000₫</p>
+                </div>
+            </div>
+            <div class="flex">
+                <i class="fas fa-shield-alt text-blue-600 mt-1 mr-3"></i>
+                <div>
+                    <p class="font-medium">Bảo hành chính hãng 12 tháng</p>
+                    <p class="text-sm text-gray-500">Tại trung tâm bảo hành ủy quyền</p>
+                </div>
+            </div>
+            <div class="flex">
+                <i class="fas fa-exchange-alt text-blue-600 mt-1 mr-3"></i>
+                <div>
+                    <p class="font-medium">Đổi trả trong 15 ngày</p>
+                    <p class="text-sm text-gray-500">Nếu sản phẩm lỗi do nhà sản xuất</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Tabs -->
+    <div class="bg-white rounded-2xl shadow-sm overflow-hidden mb-16">
+        <div class="border-b border-gray-200">
+            <nav class="flex">
+                <button class="px-6 py-4 font-medium text-blue-600 border-b-2 border-blue-600">
+                    Mô tả sản phẩm
+                </button>
+                <button class="px-6 py-4 font-medium text-gray-500 hover:text-gray-700">
+                    Thông số kỹ thuật
+                </button>
+                <button class="px-6 py-4 font-medium text-gray-500 hover:text-gray-700">
+                    Đánh giá (129)
+                </button>
+            </nav>
+        </div>
+        <div class="p-6">
+            <div class="prose max-w-none">
+                <p class="text-gray-600">Hiện chưa có mô tả chi tiết cho sản phẩm này. iPhone Pro Max là dòng điện thoại
+                    cao cấp nhất của Apple với màn hình lớn, hiệu năng mạnh mẽ và hệ thống camera tiên tiến.</p>
+
+                <p class="text-gray-600 mt-4">iPhone Pro Max được trang bị chip xử lý mới nhất, bộ nhớ RAM lớn giúp xử
+                    lý đa nhiệm mượt mà, và dung lượng pin cải tiến cho thời gian sử dụng lâu hơn. Màn hình OLED với
+                    công nghệ ProMotion mang lại trải nghiệm hình ảnh sắc nét và mượt mà.</p>
+
+                <p class="text-gray-600 mt-4">Hệ thống camera đa ống kính hỗ trợ chụp ảnh góc rộng, góc siêu rộng và
+                    zoom quang học, cùng nhiều tính năng chụp ảnh chuyên nghiệp.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold mb-6">Sản phẩm liên quan</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Product 1 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-48 flex items-center justify-center bg-gray-50 relative">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="iPhone 15"
+                        class="h-40 object-contain">
+                    <span
+                        class="absolute top-2 left-2 bg-red-500 text-white text-xs font-medium px-2 py-1 rounded">-15%</span>
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium mb-2 text-gray-900">iPhone 15</h3>
+                    <div class="flex items-center mb-2">
+                        <div class="flex items-center text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-500 text-xs ml-1">(98)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-red-600">24.900.000₫</span>
+                            <span class="text-gray-500 text-sm line-through ml-1">29.990.000₫</span>
+                        </div>
+                        <button class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-48 flex items-center justify-center bg-gray-50">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="iPhone 15 Pro"
+                        class="h-40 object-contain">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium mb-2 text-gray-900">iPhone 15 Pro</h3>
+                    <div class="flex items-center mb-2">
+                        <div class="flex items-center text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-500 text-xs ml-1">(64)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-red-600">28.990.000₫</span>
+                        </div>
+                        <button class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-48 flex items-center justify-center bg-gray-50">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="MacBook Pro"
+                        class="h-40 object-contain">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium mb-2 text-gray-900">MacBook Pro</h3>
+                    <div class="flex items-center mb-2">
+                        <div class="flex items-center text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-500 text-xs ml-1">(128)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-red-600">35.900.000₫</span>
+                            <span class="text-gray-500 text-sm line-through ml-1">39.900.000₫</span>
+                        </div>
+                        <button class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                <div class="h-48 flex items-center justify-center bg-gray-50">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="iPad Pro"
+                        class="h-40 object-contain">
+                </div>
+                <div class="p-4">
+                    <h3 class="font-medium mb-2 text-gray-900">iPad Pro</h3>
+                    <div class="flex items-center mb-2">
+                        <div class="flex items-center text-yellow-400 text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="text-gray-500 text-xs ml-1">(42)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="font-bold text-red-600">22.490.000₫</span>
+                        </div>
+                        <button class="p-2 rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recently Viewed -->
+    <div>
+        <h2 class="text-2xl font-bold mb-6">Đã xem gần đây</h2>
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
+            <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
+                <div class="h-24 flex items-center justify-center">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="Product"
+                        class="h-20 object-contain">
+                </div>
+                <div class="text-center mt-2">
+                    <h3 class="text-sm font-medium text-gray-900 truncate">MacBook Air</h3>
+                    <div class="mt-1 font-semibold text-red-600 text-sm">19.990.000₫</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
+                <div class="h-24 flex items-center justify-center">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="Product"
+                        class="h-20 object-contain">
+                </div>
+                <div class="text-center mt-2">
+                    <h3 class="text-sm font-medium text-gray-900 truncate">AirPods Pro</h3>
+                    <div class="mt-1 font-semibold text-red-600 text-sm">5.990.000₫</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
+                <div class="h-24 flex items-center justify-center">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="Product"
+                        class="h-20 object-contain">
+                </div>
+                <div class="text-center mt-2">
+                    <h3 class="text-sm font-medium text-gray-900 truncate">Apple Watch Series 9</h3>
+                    <div class="mt-1 font-semibold text-red-600 text-sm">10.990.000₫</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
+                <div class="h-24 flex items-center justify-center">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="Product"
+                        class="h-20 object-contain">
+                </div>
+                <div class="text-center mt-2">
+                    <h3 class="text-sm font-medium text-gray-900 truncate">Magic Mouse</h3>
+                    <div class="mt-1 font-semibold text-red-600 text-sm">2.490.000₫</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
+                <div class="h-24 flex items-center justify-center">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="Product"
+                        class="h-20 object-contain">
+                </div>
+                <div class="text-center mt-2">
+                    <h3 class="text-sm font-medium text-gray-900 truncate">Magic Keyboard</h3>
+                    <div class="mt-1 font-semibold text-red-600 text-sm">3.290.000₫</div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow">
+                <div class="h-24 flex items-center justify-center">
+                    <img src="https://laptopkimanh.vn/upload/image/product/5445-2.jpg" alt="Product"
+                        class="h-20 object-contain">
+                </div>
+                <div class="text-center mt-2">
+                    <h3 class="text-sm font-medium text-gray-900 truncate">HomePod Mini</h3>
+                    <div class="mt-1 font-semibold text-red-600 text-sm">2.990.000₫</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

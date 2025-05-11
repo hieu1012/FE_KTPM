@@ -6,6 +6,9 @@ import { CarouselComponent, CarouselInnerComponent, CarouselItemComponent } from
 import { OwlOptions, CarouselModule } from 'ngx-owl-carousel-o';
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common'; // để sử dụng slice 
+import { getProducts } from 'src/data/product';
+import { ROUTING } from 'src/constants/routing';
+import { ProductService } from '@services/product.service';
 
 
 
@@ -18,6 +21,12 @@ import { CommonModule } from '@angular/common'; // để sử dụng slice
   styleUrl: './homeScreen.component.css'
 })
 export class HomeScreen implements OnInit {
+  ROUTING = ROUTING;
+
+  constructor(private productService: ProductService) { }
+  listProducts: any[] = [];
+
+
   slides = [
     { id: 1, src: 'assets/images/home/banner1.png' },
     { id: 2, src: 'assets/images/home/banner3.png' },
@@ -25,45 +34,6 @@ export class HomeScreen implements OnInit {
     { id: 4, src: 'assets/images/home/banner1.png' },
     { id: 5, src: 'assets/images/home/banner1.png' },
   ];
-
-  products = [
-    {
-      id: 1,
-      name: 'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...',
-      price: '$4.99',
-      img: 'assets/images/products/sp1.png'
-    },
-    {
-      id: 2,
-      name: 'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...',
-      price: '$499.00',
-      img: 'assets/images/products/sp1.png'
-    },
-    {
-      id: 3,
-      name: 'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...',
-      price: '$4.99',
-      img: 'assets/images/products/sp1.png'
-    },
-    {
-      id: 3,
-      name: 'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...',
-      price: '$4.99',
-      img: 'assets/images/products/sp1.png'
-    },
-    {
-      id: 3,
-      name: 'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-On...',
-      price: '$4.99',
-      img: 'assets/images/products/sp1.png'
-    },
-    {
-      id: 3,
-      name: 'EX DISPLAY : MSI Pro 16 Flex-036AU 15.6 MULTITOUCH All-In-Onsfsdfdfdz.',
-      price: '$4.99',
-      img: 'assets/images/products/sp1.png'
-    },
-  ]
 
   itemBanner: any[] = [];
 
@@ -85,11 +55,19 @@ export class HomeScreen implements OnInit {
     autoplayTimeout: 3000,
   };
 
-
+  products = getProducts();
 
   ngOnInit(): void {
-    console.log("ngOnInit() được gọi");
     this.itemBanner = [...this.slides];
+    this.productService.getAllProducts().subscribe({
+      next: (response: any) => {
+        this.listProducts = response;
+        // console.log('Danh sách sản phẩm:', this.listProducts);
+      },
+      error: (error) => {
+        console.error('Lỗi khi lấy danh sách sản phẩm:', error);
+      }
+    });
   }
 
 

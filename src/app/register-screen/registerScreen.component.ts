@@ -21,21 +21,33 @@ export class RegisterScreen {
   registerErrorMessage: string | null = null;
   constructor(private authService: AuthService) { }
 
-  onSubmit() {
-    this.authService.register(this.email, this.password, this.fullName).subscribe(
-      (response) => {
-        if (response) {
-          this.user = this.authService.getUser();
-          alert(`Đăng ký thành công!`);
-        } else {
+  // onSubmit() {
+  //   this.authService.register(this.email, this.password, this.fullName).subscribe(
+  //     (response) => {
+  //       if (response) {
+  //         this.user = this.authService.getUser();
+  //         alert(`Đăng ký thành công!`);
+  //       } else {
 
-          alert('Đăng ký thất bại!');
-        }
+  //         alert('Đăng ký thất bại!');
+  //       }
+  //     },
+  //     (error) => {
+  //       alert('Đăng ký thất bại!');
+  //     }
+  //   );
+  // }
+
+
+  onSubmit() {
+    this.authService.register(this.email, this.password, this.fullName).subscribe({
+      next: (response) => {
+        console.log('Đăng ký thành công:', response);
       },
-      (error) => {
-        alert('Đăng ký thất bại!');
+      error: (error) => {
+        console.error('Lỗi khi đăng ký:', error);
       }
-    );
+    });
   }
 
 

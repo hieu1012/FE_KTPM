@@ -6,6 +6,7 @@ import { ROUTING } from '/KienTrucPhanMem/project-ktpm/src/constants/routing'
 import { Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '@services/auth.service';
+import { access } from 'fs';
 
 
 @Component({
@@ -17,8 +18,8 @@ import { AuthService } from '@services/auth.service';
 export class LoginScreen implements OnInit {
   ROUTING = ROUTING
 
-  email: string = '';
-  password: string = '';
+  email: string = 'daotaohieu13@gmail.com';
+  password: string = '12345678';
   user: any = null;
   loginSuccessMessage: string | null = null;
   loginErrorMessage: string | null = null;
@@ -59,25 +60,10 @@ export class LoginScreen implements OnInit {
   }
 
   constructor(private authService: AuthService, @Inject(Router) private router: Router) { }
+
   onSubmit() {
-    // Gọi API đăng nhập từ AuthService 
-    // response là đối tượng được trả về từ API đăng nhập
-    this.authService.login(this.email, this.password).subscribe(response => {
-      if (response && this.authService.getUser()) {
-        this.user = this.authService.getUser();
-        alert(`Đăng nhập thành công! Xin chào ${this.user.fullName}`);
-        this.router.navigate([ROUTING.HOME_SCREEN]);  // Chuyển trang sau khi đăng ký thành công
-
-      } else {
-        alert('Đăng nhập thất bại!');
-      }
-    }, error => {
-      alert('Đăng nhập thất bại!');
-    });
+    this.authService.login(this.email, this.password);
   }
-
-
-
 
   ngOnInit() {
     // cuộn đến đầu trang

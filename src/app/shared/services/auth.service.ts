@@ -1,81 +1,91 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { UserService } from './user.service';
 
-import { User } from '@models/user.model';
-import { AuthResponse } from '@models/authResponse.model';
+import { ROUTING } from '../../../constants/routing';
+
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    private authUrl = 'http://localhost:8080/auth/login';
-    private registerUrl = 'http://localhost:8080/auth/register';
-    private accessToken: string | null = null;
-    private user: User | null = null;
+    private apiLogin = '/auth/login';
+    // private apiLogin = 'http://localhost:8081/auth/login';
+    private apiRegister = '/auth/register';
+    private apiUser = '/me';
 
-    // Subject để thông báo trạng thái đăng nhập cho các component khác theo dõi trả về giá trị boolean 
-    private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    constructor(
+        private http: HttpClient,
+        private router: Router,
+        private userService: UserService,
+        @Inject(PLATFORM_ID) private platformId: Object
+    ) { }
 
-    // Biến observable để các component khác theo dõi trạng thái đăng nhập
-    isLoggedIn$ = this.isLoggedInSubject.asObservable();
+    login(email: string, password: string): void {
+        const body = { email, password };
+        this.http.post<any>(this.apiLogin, body).subscribe({
+            next: (response) => {
+                console.log('Đăng nhập thành công', response);
+                if (isPlatformBrowser(this.platformId)) {
+                    const token = response.data.token;
+                    localStorage.setItem('access_token', token);
 
+                    this.userService.getUser().subscribe({
+                        next: (user) => {
+                            // console.log('Thông tin người dùng:', user.data);
+                            localStorage.setItem('user', JSON.stringify(user.data));
+                            console.log('Thông tin user đã được lưu trữ', localStorage.getItem('user'));
+                            this.router.navigate([ROUTING.HOME_SCREEN]).then(() => {
+                                window.location.reload();
+                            });
+                        },
+                        error: (error) => {
+                            console.error('Lỗi khi lấy thông tin người dùng:', error);
+                        }
+                    });
+                }
 
-    constructor(private http: HttpClient) { }
-
-    login(email: string, password: string): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.post<AuthResponse>(this.authUrl, { email, password }, { headers })
-            .pipe(
-                tap(response => {
-                    this.accessToken = response.token;
-                    this.user = response.user;
-                    this.isLoggedInSubject.next(true);
-                    // Thông báo đăng nhập thành công 
-                    console.log('Đăng nhập thành công!');
-                    console.log('Token:', this.accessToken);
-                    console.log('User Info:', this.user);
-                }),
-                catchError(this.handleError<AuthResponse>('login'))
-            );
+            },
+            error: (error) => {
+                console.error('Đăng nhập thất bại', error);
+            }
+        });
     }
 
-    register(email: string, password: string, fullName: string): Observable<AuthResponse> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.post<AuthResponse>(this.registerUrl, { email, password, fullName }, { headers })
-            .pipe(
-                tap(response => {
-                    const cuserRegister: User = response.user;
-                    console.log('Đăng ký thành công!');
-                    console.log('User Info:', cuserRegister);
-                }),
-                catchError(this.handleError<AuthResponse>('register'))
-            );
+    getToken(): string | null {
+        if (isPlatformBrowser(this.platformId)) {
+            return localStorage.getItem('access_token');
+        }
+        return null;
     }
 
-    logout() {
-        this.accessToken = null;
-        this.user = null;
-        this.isLoggedInSubject.next(false);
-        console.log('Đăng xuất thành công!');
-        console.log('Token:', this.accessToken);
+    clear(): void {
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
+        }
     }
 
-    getUser(): User | null {
-        return this.user;
+    isLoggedIn(): boolean {
+        return this.getToken() !== null;
     }
 
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
-            console.error(`${operation} failed: ${error.message}`);
-            // Thông báo lỗi
-            console.log('token:', this.accessToken);
-            return of(result as T);
-        };
+    logout(): void {
+        this.clear();
+        // this.router.navigate([ROUTING.LOGIN_SCREEN]).then(() => {
+        //     window.location.reload();
+        // });
+        window.location.reload();
     }
 
-
-
+    register(email: string, password: string, fullName: string): Observable<any> {
+        const body = { email, password, fullName };
+        alert('Đăng ký thành công');
+        this.router.navigate([ROUTING.LOGIN_SCREEN]);
+        return this.http.post<any>(this.apiRegister, body);
+    }
 
 }

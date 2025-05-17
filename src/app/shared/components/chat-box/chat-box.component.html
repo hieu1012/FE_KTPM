@@ -1,0 +1,27 @@
+<!-- ICON MỞ CHAT -->
+<img *ngIf="!isChatOpen" class="chat-icon" src="assets/images/chat.png" alt="Chat" (click)="toggleChat()" />
+
+<!-- KHUNG CHAT -->
+<div *ngIf="isChatOpen" class="chat-container">
+    <div class="chat-header">
+        <span>Chat với trợ lý</span>
+        <button class="close-btn" (click)="toggleChat()">×</button>
+    </div>
+
+    <div class="chat-messages" #scrollContainer>
+        <div *ngFor="let msg of messages" class="message-wrapper"
+            [ngClass]="{ 'from-user': msg.role === 'user', 'from-bot': msg.role === 'assistant' }">
+            <div class="message-content">
+                {{ msg.content }}
+            </div>
+            <div class="message-meta">
+                {{ msg.role === 'user' ? 'Bạn' : 'Trợ lý' }} • {{ msg.timestamp | date:'shortTime' }}
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-input">
+        <input [(ngModel)]="inputMessage" (keyup.enter)="send()" placeholder="Nhập tin..." />
+        <button (click)="send()">Gửi</button>
+    </div>
+</div>

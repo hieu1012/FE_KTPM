@@ -1,0 +1,145 @@
+<div class="container mx-auto px-40 py-4 relative">
+    <h1 class="text-[18px] font-bold mb-6  ">Giỏ hàng</h1>
+    <div class="flex flex-col md:flex-row gap-8">
+        <!-- Sản phẩm trong giỏ -->
+        <div class="w-full md:w-2/3 space-y-6 bg-white rounded-lg shadow-sm p-6">
+            <!-- Tiêu đề -->
+            <div class="hidden md:grid grid-cols-12 text-[15px] font-bold text-gray-600 border-b border-gray-400 pb-4">
+                <div class="col-span-1 flex items-center justify-center mr-4">
+                    <input type="checkbox" class="w-4 h-4 accent-blue-600" [checked]="isAllSelected()"
+                        (change)="toggleSelectAll($event)">
+                </div>
+                <div class="col-span-5 pl-2 ">Sản phẩm</div>
+                <div class="col-span-2 text-right">Giá</div>
+                <div class="col-span-2 text-center">Số lượng</div>
+                <div class="col-span-2 text-center pl-3">Xoá</div>
+            </div>
+
+            <!-- Danh sách sản phẩm -->
+            <div *ngFor="let item of cartItems"
+                class="grid grid-cols-12 items-center gap-4 border-b  border-gray-300 pb-6 pt-4 hover:bg-gray-50 transition duration-150">
+                <!-- Checkbox -->
+                <div class="col-span-1 flex items-center justify-center">
+                    <input type="checkbox" class="w-4 h-4 accent-blue-600" [(ngModel)]="item.selected">
+                </div>
+
+                <!-- Sản phẩm -->
+                <div class="col-span-12 md:col-span-5 flex items-center gap-4">
+                    <div class="relative w-[80%] h-[80%] ">
+                        <img [src]="item.imageUrl" alt="{{ item.name }}" class="w-full h-full object-cover rounded">
+                    </div>
+                    <div class="text-sm">
+                        <div class="font-medium text-gray-800 mb-1 line-clamp-2">{{ item.name }}</div>
+                        <div class="text-xs text-gray-500 md:hidden">
+                            {{ item.price.toFixed(2) }} x {{ item.quantity }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Giá -->
+                <div class="col-span-4 md:col-span-2 text-sm font-medium text-right text-gray-800">
+                    {{ item.price.toFixed(2) }}
+                </div>
+
+                <!-- Số lượng -->
+                <div class="col-span-4 md:col-span-2 flex justify-center">
+                    <div class="flex items-center border border-gray-300 rounded-md overflow-hidden">
+                        <button (click)="updateQuantity(item, item.quantity - 1)"
+                            class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 transition">
+                            -
+                        </button>
+                        <span class="px-4 py-1 font-medium text-gray-800">{{ item.quantity }}</span>
+                        <button (click)="updateQuantity(item, item.quantity + 1)"
+                            class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 transition">
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Nút xoá -->
+                <div class="col-span-2 md:col-span-2 flex items-center justify-center ">
+                    <button (click)="removeItem(item.id)"
+                        class="cursor-pointer text-gray-100 text-lg transition-colors duration-200 bg-red-300 rounded-full p-2 hover:bg-red-500">
+                        <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Thông báo giỏ hàng trống -->
+            <div *ngIf="cartItems.length === 0" class="py-16 text-center">
+                <div class="text-gray-400 text-6xl mb-4">
+                    <nz-icon nzType="shopping-cart" nzTheme="outline"></nz-icon>
+                </div>
+                <h3 class="text-xl font-medium text-gray-700 mb-2">Giỏ hàng của bạn đang trống</h3>
+                <p class="text-gray-500 mb-6">Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm</p>
+                <button class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                    Tiếp tục mua sắm
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Tóm tắt đơn hàng -->
+        <div class="w-full md:w-1/3 bg-white border border-gray-200 rounded-lg shadow p-5 space-y-4 h-fit">
+            <h2 class="text-[16px] font-semibold text-gray-800">Tóm tắt</h2>
+
+            <div *ngIf="!hasSelectedItems()" class="text-center py-8 text-gray-500 ">
+                Vui lòng chọn sản phẩm để xem tóm tắt đơn hàng
+            </div>
+
+            <!-- Chỉ hiển thị khi có sản phẩm được chọn -->
+            <div *ngIf="hasSelectedItems()" class="space-y-4 text-sm text-gray-700">
+                <!-- Ước tính phí -->
+                <div>
+                    <button (click)="toggleShippingExpanded()" class="w-full flex justify-between font-medium">
+                        Ước tính phí vận chuyển & thuế
+                        <span>{{ shippingExpanded ? '-' : '+' }}</span>
+                    </button>
+                    <div *ngIf="shippingExpanded" class="mt-2 text-sm text-gray-600 border-l-2 pl-3">
+                        Nhập địa chỉ để ước tính phí vận chuyển.
+                    </div>
+                </div>
+
+                <!-- Mã giảm giá -->
+                <div>
+                    <button (click)="toggleDiscountExpanded()" class="w-full flex justify-between font-medium">
+                        Nhập mã giảm giá
+                        <span>{{ discountExpanded ? '-' : '+' }}</span>
+                    </button>
+                    <div *ngIf="discountExpanded" class="mt-2 border-l-2 pl-3">
+                        <!-- Form nhập mã giảm giá -->
+                    </div>
+                </div>
+
+                <!-- Chi tiết đơn -->
+                <div class="space-y-1">
+                    <div class="flex justify-between">
+                        <span>Tạm tính</span><span>{{ calculateSelectedSubtotal().toFixed(2) }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Phí vận chuyển</span><span>{{ shippingCost.toFixed(2) }}</span>
+                    </div>
+                    <p class="text-xs text-gray-500">(Phí chuẩn - Có thể thay đổi)</p>
+                    <div class="flex justify-between">
+                        <span>Thuế GTGT (10%)</span><span>{{ calculateSelectedTax().toFixed(2) }}</span>
+                    </div>
+                    <div class="border-t pt-2 flex justify-between font-bold text-base text-black">
+                        <span>Tổng cộng</span><span>{{ calculateSelectedTotal().toFixed(2) }}</span>
+                    </div>
+                </div>
+
+                <!-- Hành động -->
+                <div class="space-y-2 pt-1">
+                    <button class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition"
+                        (click)="handlePayment()">
+                        Tiến hành thanh toán
+                    </button>
+                    <button class="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 transition"
+                        (click)="removeSelectedItems()">
+                        Xóa đơn đã chọn
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>

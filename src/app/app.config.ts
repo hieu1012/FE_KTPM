@@ -11,6 +11,9 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { ProductService } from './shared/services/product.service';
+import { provideNzIcons } from 'ng-zorro-antd/icon';
+import { FileExcelOutline, SettingOutline, SearchOutline, ExportOutline, WechatOutline } from '@ant-design/icons-angular/icons';
+
 
 
 
@@ -22,6 +25,7 @@ export const appConfig: ApplicationConfig = {
   provideHttpClient(withInterceptorsFromDi()), // Thêm withInterceptorsFromDi()
     ProductService,
   { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  provideNzIcons([FileExcelOutline, SettingOutline, SearchOutline, ExportOutline, WechatOutline]),
   ],
 
 };

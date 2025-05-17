@@ -1,0 +1,61 @@
+<div class="h-[600px] bg-green-50 flex flex-col items-center justify-center ">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Header -->
+        <div class="bg-green-500 p-6 text-center">
+            <div class="rounded-full bg-white h-20 w-20 flex items-center justify-center mx-auto mb-4">
+                <svg class="h-12 w-12 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Thanh toán thành công!</h1>
+            <p class="text-green-100 mt-2">Cảm ơn bạn đã hoàn thành thanh toán</p>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+            <div class="border-b border-gray-200 py-4">
+                <h2 class="text-lg font-medium text-gray-700">Chi tiết thanh toán</h2>
+
+                <div class="mt-4 space-y-3">
+                    <!-- <div class="flex justify-between text-gray-600">
+                        <span>Mã đơn hàng:</span>
+                        <span class="font-medium">{{orderNumber}}</span>
+                    </div>
+
+                    <div class="flex justify-between text-gray-600">
+                        <span>Ngày thanh toán:</span>
+                        <span class="font-medium">{{paymentDate}}</span>
+                    </div>
+
+                    <div class="flex justify-between text-gray-600">
+                        <span>Số tiền:</span>
+                        <span class="font-medium">{{amount}}</span>
+                    </div> -->
+
+                    <div class="flex justify-between text-gray-600">
+                        <span>Phương thức:</span>
+                        <span class="font-medium">{{paymentMethod}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 space-y-3">
+                <button (click)="goToOrderDetails()"
+                    class="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 transition-colors">
+                    Xem chi tiết đơn hàng
+                </button>
+
+                <button (click)="goToHomePage()"
+                    class="w-full py-2 px-4 border border-green-500 text-green-600 hover:bg-green-50 font-medium rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75 transition-colors">
+                    Về trang chủ
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 text-center text-gray-500 text-sm">
+        <p class="mt-1">Nếu bạn có thắc mắc, vui lòng liên hệ <a href="#" class="text-green-600 hover:underline">hỗ trợ
+                khách hàng</a></p>
+    </div>
+</div>

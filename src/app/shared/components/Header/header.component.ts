@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit {
   user: any = null;
   isLoggedIn: boolean = false;
 
+
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private authService: AuthService) { }
 
   ngOnInit(): void {

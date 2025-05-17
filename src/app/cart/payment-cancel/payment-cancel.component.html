@@ -1,0 +1,65 @@
+<div class="min-h-screen bg-red-50 flex flex-col items-center justify-center p-4">
+    <div class="max-w-md w-full bg-white rounded-xl shadow-lg overflow-hidden">
+        <!-- Header -->
+        <div class="bg-red-500 p-6 text-center">
+            <div class="rounded-full bg-white h-20 w-20 flex items-center justify-center mx-auto mb-4">
+                <svg class="h-12 w-12 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Thanh toán thất bại!</h1>
+            <p class="text-red-100 mt-2">Đã xảy ra lỗi trong quá trình thanh toán</p>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+            <div class="border-b border-gray-200 py-4">
+                <h2 class="text-lg font-medium text-gray-700">Thông tin lỗi</h2>
+
+                <div class="mt-4 space-y-3">
+                    <div class="flex justify-between text-gray-600">
+                        <span>Mã lỗi:</span>
+                        <span class="font-medium">{{errorCode}}</span>
+                    </div>
+
+                    <div class="flex justify-between text-gray-600">
+                        <span>Ngày giao dịch:</span>
+                        <span class="font-medium">{{attemptDate}}</span>
+                    </div>
+
+                    <div class="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <p class="text-red-700">{{errorMessage}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="text-gray-700 font-medium mb-3">Các bước khắc phục có thể thực hiện:</h3>
+                <ul class="list-disc list-inside text-gray-600 space-y-2 ml-2">
+                    <li>Kiểm tra lại thông tin thẻ/tài khoản của bạn</li>
+                    <li>Đảm bảo tài khoản của bạn có đủ số dư</li>
+                    <li>Liên hệ với ngân hàng để biết thêm chi tiết</li>
+                    <li>Thử lại với phương thức thanh toán khác</li>
+                </ul>
+            </div>
+
+            <div class="mt-6 space-y-3">
+                <button (click)="tryAgain()"
+                    class="w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75 transition-colors">
+                    Thử lại
+                </button>
+
+                <button (click)="contactSupport()"
+                    class="w-full py-2 px-4 border border-red-500 text-red-600 hover:bg-red-50 font-medium rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-75 transition-colors">
+                    Liên hệ hỗ trợ
+                </button>
+
+                <button (click)="goToHomePage()"
+                    class="w-full py-2 px-4 border border-gray-300 text-gray-700 hover:bg-gray-50 font-medium rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-75 transition-colors">
+                    Về trang chủ
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

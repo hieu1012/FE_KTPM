@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ManufactureResponse } from '../models/manufacture.model';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +10,7 @@ export class ManufactureService {
 
     constructor(private http: HttpClient) { }
 
-    getAllManufactures(): Observable<ManufactureResponse> {
-        return this.http.get<ManufactureResponse>(this.apiUrl);
+    getAllManufactures(): Observable<any> {
+        return this.http.get<any>(this.apiUrl);
     }
 }

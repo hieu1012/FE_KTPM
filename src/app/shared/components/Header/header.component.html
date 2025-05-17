@@ -1,4 +1,4 @@
-<div class="header">
+<!-- <div class="header">
 
   <div class="top-header ">
     <div class="opening-hours ">
@@ -41,14 +41,10 @@
     <div class="icon-wrapper-and-avatar flex ">
       <div class="flex justify-between">
         <i class="fa-solid fa-search icon "></i>
-        <i class="fa-solid fa-shopping-cart icon"></i>
+        <button [routerLink]="['/', ROUTING.CART]">
+          <i class="fa-solid fa-shopping-cart icon"></i>
+        </button>
       </div>
-      <!-- <div class="flex ">
-        <button [routerLink]="['/', ROUTING.LOGIN_SCREEN]" class="text-sm mx-1 cursor-pointer">Login </button>
-        <span class="text-stone-400 text-ms">|</span>
-        <button [routerLink]="['/', ROUTING.REGISTER_SCREEN]" class="text-sm mx-1 cursor-pointer">Register</button>
-      </div> -->
-
       <div class="flex" *ngIf="isLoggedIn else loginRegister">
         <button class="text-sm mx-1 cursor-pointer pl-2.5">
           {{ user.fullName}}
@@ -67,4 +63,77 @@
     </div>
   </div>
 </div>
+<div style="margin-bottom: 100px;"></div> -->
+
+<div class="header">
+
+  <!-- Phần đầu (Top Header) -->
+  <div class="top-header">
+    <div class="opening-hours">
+      Thứ 2 - Thứ 5: <b>9:00 - 17:30</b>
+    </div>
+    <div class="location-info">
+      Ghé thăm showroom tại 1234 Địa chỉ đường, Thành phố 1234
+      <b class="contact" style="text-decoration: underline;">Liên hệ với chúng tôi</b>
+    </div>
+    <div class="phone-number-and-social-icons">
+      <div class="phone-number">
+        Gọi ngay: 096 107 4946
+      </div>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/daotaohieu/" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-facebook social-icon"></i>
+        </a>
+        <a href="https://www.youtube.com/@daotaohieu/featured" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-youtube social-icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phần chính (Main Header) -->
+  <div class="main-header">
+    <div class="flex">
+      <img class="logo" src="assets/images/logo.png" alt="logo">
+      <ul class="nav-menu">
+        <li [routerLink]="['/', ROUTING.HOME_SCREEN]" class="nav-item">Trang chủ<a href="" class="nav-link"></a></li>
+        <li class="nav-item">Máy tính để bàn<a href="" class="nav-link"></a></li>
+        <li class="nav-item">Thiết bị mạng<a href="" class="nav-link"></a></li>
+        <li class="nav-item">Linh kiện máy tính<a href="" class="nav-link"></a></li>
+        <li class="nav-item">Sản phẩm khác<a href="" class="nav-link"></a></li>
+        <li [routerLink]="['/',ROUTING.ABOUT_SCREEN]" class="nav-item">Về chúng tôi<a href="" class="nav-link"></a></li>
+      </ul>
+    </div>
+
+    <div class="icon-wrapper-and-avatar flex w-[270px] justify-between">
+      <div class="flex justify-between">
+        <i class="fa-solid fa-search icon"></i>
+        <button [routerLink]="['/', ROUTING.CART_SCREEN]">
+          <i class="fa-solid fa-shopping-cart icon"></i>
+        </button>
+      </div>
+
+      <!-- Đã đăng nhập -->
+      <div class="flex" *ngIf="isLoggedIn else loginRegister">
+        <button class="text-sm mx-1 cursor-pointer pl-2.5">
+          {{ user.fullName }}
+        </button>
+        <span class="text-stone-400 text-ms">|</span>
+        <button (click)="logout()" class="text-sm mx-1 cursor-pointer">Đăng xuất</button>
+      </div>
+
+      <!-- Chưa đăng nhập -->
+      <ng-template #loginRegister>
+        <div class="flex">
+          <button [routerLink]="['/', ROUTING.LOGIN_SCREEN]" class="text-sm mx-1 cursor-pointer pl-2.5">Đăng
+            nhập</button>
+          <span class="text-stone-400 text-ms">|</span>
+          <button [routerLink]="['/', ROUTING.REGISTER_SCREEN]" class="text-sm mx-1 cursor-pointer">Đăng ký</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<!-- Khoảng trống tránh che nội dung -->
 <div style="margin-bottom: 100px;"></div>

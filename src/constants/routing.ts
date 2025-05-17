@@ -5,4 +5,7 @@ export const ROUTING = {
     ABOUT_SCREEN: 'About',
     CATALOG: 'Catalog',
     DETAIL_PRODUCT: 'DetailProduct',
+    CART_SCREEN: 'Cart',
+    PAYMENT_SUCCESS: 'PaymentSuccess',
+    PAYMENT_CANCEL: 'PaymentCancel',
 }

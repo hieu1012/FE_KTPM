@@ -9,13 +9,14 @@ import { CommonModule } from '@angular/common'; // để sử dụng slice
 import { getProducts } from 'src/data/product';
 import { ROUTING } from 'src/constants/routing';
 import { ProductService } from '@services/product.service';
+import { PriceFormatPipe } from '../shared/pipes/price-format.pipe';
 
 
 
 
 @Component({
   selector: 'homeScreen',
-  imports: [FormsModule, RouterModule, NgFor, CarouselModule, CommonModule],
+  imports: [FormsModule, RouterModule, NgFor, CarouselModule, CommonModule, PriceFormatPipe],
   // imports: [FormsModule, RouterModule, NgFor],
   templateUrl: './homeScreen.component.html',
   styleUrl: './homeScreen.component.css'

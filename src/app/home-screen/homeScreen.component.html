@@ -44,9 +44,11 @@
 
 
                     <!-- Giá -->
-                    <p class="text-sm mt-2.5 line-through text-zinc-600">{{ product.originalPrice || product.price }}
+                    <!-- <p class="text-sm mt-2.5 line-through text-zinc-600">{{ product.originalPrice || product.price }}</p> -->
+
+                    <p class="text-base font-semibold mt-[4px]">
+                        {{ product.price | priceFormat }}<sup class="text-xs ml-0.5">đ</sup>
                     </p>
-                    <p class="text-base font-semibold">{{ product.price }}</p>
                 </div>
             </div>
         </div>

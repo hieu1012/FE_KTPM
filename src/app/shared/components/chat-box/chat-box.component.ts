@@ -40,6 +40,8 @@ export class ChatBoxComponent implements OnInit, AfterViewChecked {
     this.isChatOpen = !this.isChatOpen;
   }
 
+
+
   send(): void {
     const trimmed = this.inputMessage.trim();
     if (!trimmed) return;
@@ -52,10 +54,14 @@ export class ChatBoxComponent implements OnInit, AfterViewChecked {
       timestamp: new Date().toISOString()
     };
     this.messages.push(userMessage);
+    // Cuộn xuống sau khi thêm tin nhắn người dùng
+    setTimeout(() => this.scrollToBottom(), 0);
 
     this.chatBoxService.sendMessage(this.user.id, trimmed).subscribe((response: any) => {
       const botReply = response.data || response;
       this.messages.push(botReply);
+      // Cuộn xuống sau khi nhận được tin nhắn từ bot
+      setTimeout(() => this.scrollToBottom(), 0);
     });
 
     this.inputMessage = '';

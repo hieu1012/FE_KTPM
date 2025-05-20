@@ -11,6 +11,7 @@ export class ManufactureService {
     constructor(private http: HttpClient) { }
 
     getAllManufactures(): Observable<any> {
+        
         return this.http.get<any>(this.apiUrl);
     }
 }

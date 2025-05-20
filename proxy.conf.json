@@ -21,5 +21,13 @@
         "pathRewrite": {
             "^/chat": ""
         }
+    },
+    "/order": {
+        "target": "http://localhost:8089",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/order": ""
+        }
     }
 }

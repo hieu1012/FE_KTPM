@@ -10,11 +10,38 @@ export class ProductService {
 
     constructor(private http: HttpClient) { }
 
-    getAllProducts(): Observable<any[]> {
-        return this.http.get<any>(this.apiUrl).pipe(
+    // http://localhost:8089/api/product?page=0&size=20
+    getAllProducts(page: number, size: number): Observable<any[]> {
+        return this.http.get<any>(`${this.apiUrl}?page=${page}&size=${size}`).pipe(
             map(response => response.data.result)
         );
     }
+    // getAllProducts(): Observable<any[]> {
+    //     return this.http.get<any>(this.apiUrl).pipe(
+    //         map(response => response.data.result)
+    //     );
+    // }
+
+    // getProductsByCategoryId(categoryId: number, page: number, size: number): Observable<any[]> {
+    //     return this.http.get<any>(`${this.apiUrl}/category/${categoryId}?page=${page}&size=${size}`).pipe(
+    //         map(response => response.data.result)
+    //     );
+    // }
+
+    getProductsByCategoryId(categoryId: number): Observable<any[]> {
+        return this.http.get<any>(`${this.apiUrl}/category/${categoryId}`).pipe(
+            map(response => response.data.result)
+        );
+    }
+
+    getProductsByManufactureId(manufactureId: number, page: number, size: number): Observable<any[]> {
+        return this.http.get<any>(`${this.apiUrl}/manufacture/${manufactureId}?page=${page}&size=${size}`).pipe(
+            map(response => response.data.result)
+        );
+    }
+
+
+
 
     getProductById(id: string): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${id}`);

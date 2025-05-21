@@ -1,23 +1,32 @@
 <!-- Main Content -->
 <main class="container mx-auto px-40 py-2">
+    <!-- Hiển thị loading nếu sản phẩm chưa được tải -->
+    <div *ngIf="!product" class="flex items-center justify-center h-96">
+        <div class="text-center">
+            <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4">
+            </div>
+            <p class="text-gray-600">Đang tải thông tin sản phẩm...</p>
+        </div>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+    <!-- Hiển thị nội dung khi đã có sản phẩm -->
+    <div *ngIf="product" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         <!-- Product Images -->
         <div class="bg-white rounded-xl p-4 shadow">
             <!-- Main product image container -->
             <div class="mb-3 flex items-center justify-center bg-gray-50 h-96 rounded-lg overflow-hidden">
-                <img [src]="product.images[currentImageIndex]?.url || 'assets/images/placeholder.png'"
-                    alt="{{product.name}}"
+                <img [src]="product?.images?.[currentImageIndex]?.url || '/assets/images/placeholder.jpg'" alt="image"
                     class="max-h-full max-w-full object-contain hover:scale-105 transition-transform duration-300">
             </div>
 
             <!-- Image thumbnails -->
             <div class="grid grid-cols-4 gap-2 mt-12">
-                <div *ngFor="let image of product.images; let i = index"
+                <div *ngFor="let image of product?.images || []; let i = index"
                     [class.border-blue-500]="i === currentImageIndex" [class.border-2]="i === currentImageIndex"
                     class="border border-gray-200 rounded cursor-pointer h-20 flex items-center justify-center bg-gray-50 hover:border-blue-500 transition-all"
                     (click)="changeImage(i)">
-                    <img [src]="image.url" alt="thumbnail" class="max-h-[90%] max-w-[90%] object-contain">
+                    <img [src]="image?.url || '/assets/images/placeholder.jpg'" alt="thumbnail"
+                        class="max-h-[90%] max-w-[90%] object-contain">
                 </div>
             </div>
         </div>
@@ -26,7 +35,7 @@
         <div class="bg-white rounded-xl p-6 shadow-md space-y-3">
             <!-- Product Title & Rating -->
             <div>
-                <h1 class="text-2xl font-semibold text-gray-800 mb-2">{{product.name}}</h1>
+                <h1 class="text-2xl font-semibold text-gray-800 mb-2">{{product?.name || 'Không có tên sản phẩm'}}</h1>
                 <div class="flex items-center gap-1 mb-2">
                     <div class="flex text-yellow-400">
                         <i class="fas fa-star"></i>
@@ -40,7 +49,7 @@
                 <div class="flex items-center text-sm text-gray-600 gap-3">
                     <span class="flex items-center">
                         <i class="fas fa-check-circle text-green-500 mr-1"></i>
-                        <span class="text-green-600 font-medium">Còn {{product.quantity}} sản phẩm</span>
+                        <span class="text-green-600 font-medium">Còn {{product?.quantity || 0}} sản phẩm</span>
                     </span>
                     <span class="flex items-center">
                         <i class="fas fa-shopping-bag text-orange-500 mr-1"></i>
@@ -53,7 +62,7 @@
             <div class="bg-gray-50 rounded-lg p-4">
                 <div class="flex items-baseline gap-2">
                     <div class="text-red-600 font-bold text-3xl">
-                        <sup class="text-lg mr-0.5 font-medium">đ</sup>{{product.price | priceFormat}}
+                        <sup class="text-lg mr-0.5 font-medium">đ</sup>{{product?.price | priceFormat}}
                     </div>
                 </div>
                 <p class="text-xs text-gray-500 mt-1">* Giá đã bao gồm VAT</p>
@@ -63,11 +72,13 @@
             <div class="text-sm space-y-2 border-t border-b border-gray-100 py-4">
                 <div class="grid grid-cols-3">
                     <span class="text-gray-500 col-span-1">Danh mục:</span>
-                    <a class="text-blue-600 hover:underline col-span-2" href="#">{{product.category?.name}}</a>
+                    <a class="text-blue-600 hover:underline col-span-2" href="#">{{product?.category?.name || 'Chưa phân
+                        loại'}}</a>
                 </div>
                 <div class="grid grid-cols-3">
                     <span class="text-gray-500 col-span-1">Thương hiệu:</span>
-                    <a class="text-blue-600 hover:underline col-span-2" href="#">{{product.manufacture?.name}}</a>
+                    <a class="text-blue-600 hover:underline col-span-2" href="#">{{product?.manufacture?.name || 'Chưa
+                        có thông tin'}}</a>
                 </div>
                 <div class="grid grid-cols-3">
                     <span class="text-gray-500 col-span-1">Bảo hành:</span>
@@ -77,7 +88,7 @@
 
             <!-- Short Description -->
             <div class="bg-blue-50 rounded-lg p-4">
-                <p class="text-sm text-gray-700">{{product.shortDesc}}</p>
+                <p class="text-sm text-gray-700">{{product?.shortDesc || 'Không có mô tả ngắn'}}</p>
             </div>
 
             <!-- Quantity -->
@@ -94,7 +105,7 @@
                         class="px-4 py-2 bg-gray-100 text-gray-600 hover:bg-gray-200 rounded-r-md border border-gray-200">
                         <i class="fas fa-plus"></i>
                     </button>
-                    <span class="ml-2 text-sm text-gray-500">(Tối đa: {{product.quantity}})</span>
+                    <span class="ml-2 text-sm text-gray-500">(Tối đa: {{product?.quantity || 0}})</span>
                 </div>
             </div>
 

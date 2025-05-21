@@ -9,4 +9,5 @@ export const ROUTING = {
     PAYMENT_SUCCESS: 'PaymentSuccess',
     PAYMENT_CANCEL: 'PaymentCancel',
     HITORY_ORDER: 'HistoryOrder',
+    PRODUCT_CATEGORY: 'ProductCategory',
 }

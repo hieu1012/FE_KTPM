@@ -1,82 +1,82 @@
 <div class="pb-35">
-  <h1 class="px-40 py-5 text-2xl font-bold">Customer Login</h1>
+  <h1 class="px-40 py-5 text-2xl font-bold">Đăng nhập khách hàng</h1>
+
   <div class="flex items-center justify-center bg-gray-100 p-4">
     <div class="w-full max-w-5xl flex shadow-lg rounded-lg overflow-hidden">
-      <!-- Registered Customers Section -->
-      <div class="w-1/2 bg-white p-6">
-        <h2 class="text-2xl font-bold mb-2 text-gray-800">Login</h2>
-        <p class="text-gray-600 mb-2">If you have an account, sign in with your email address.</p>
 
-        <!--  Form Angular -->
+      <!-- Phần đã có tài khoản -->
+      <div class="w-1/2 bg-white p-6">
+        <h2 class="text-2xl font-bold mb-2 text-gray-800">Đăng nhập</h2>
+        <p class="text-gray-600 mb-2">Nếu bạn đã có tài khoản, hãy đăng nhập bằng địa chỉ email.</p>
+
+        <!-- Form đăng nhập -->
         <form (ngSubmit)="onSubmit()">
           <div class="mb-2">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Email
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+              Email
               <span class="ml-4 text-red-500" *ngIf="!emailError">*</span>
-              <span class="ml-4 text-red-500" *ngIf="emailError">({{emailError}})</span>
+              <span class="ml-4 text-red-500" *ngIf="emailError">({{ emailError }})</span>
             </label>
-            <input type="email" id="email" name="email" placeholder="Your email" [(ngModel)]="email"
+            <input type="email" id="email" name="email" placeholder="Nhập email" [(ngModel)]="email"
               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required (blur)="validateEmail()" />
-
           </div>
 
           <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2">Password
-              <span *ngIf="!passwordError" class="ml-4 text-red-500 ">*</span>
-              <span *ngIf="passwordError" class="ml-4 text-red-500 ">({{passwordError}})</span>
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+              Mật khẩu
+              <span class="ml-4 text-red-500" *ngIf="!passwordError">*</span>
+              <span class="ml-4 text-red-500" *ngIf="passwordError">({{ passwordError }})</span>
             </label>
             <div class="relative">
               <input [type]="passwordVisible ? 'text' : 'password'" id="password" name="password"
-                placeholder="Your password" [(ngModel)]="password"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 "
+                placeholder="Nhập mật khẩu" [(ngModel)]="password"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required autocomplete="current-password" (blur)="validatePassword()" />
               <i [ngClass]="passwordVisible ? 'fa-eye' : 'fa-eye-slash'"
-                class="fa-regular  absolute right-[3%] top-[30%] cursor-pointer" (click)="togglePasswordVisibility()">
-
+                class="fa-regular absolute right-[3%] top-[30%] cursor-pointer" (click)="togglePasswordVisibility()">
               </i>
             </div>
-
-
           </div>
 
           <div class="flex items-center justify-between mb-4">
-            <!-- type: submit gửi form khi nhấn. type: button thì chỉ là nút bình thường -->
             <button type="submit"
               class="bg-blue-600 text-white px-8 py-2 rounded-3xl hover:bg-blue-700 transition duration-300 cursor-pointer">
-              Sign In
+              Đăng nhập
             </button>
-            <a href="#" class="text-blue-600 hover:underline text-sm">Forgot Your Password?</a>
+            <a href="#" class="text-blue-600 hover:underline text-sm">Quên mật khẩu?</a>
           </div>
         </form>
 
-        <!-- Thông báo đăng nhập thành công -->
+        <!-- Thông báo thành công -->
         <div *ngIf="loginSuccessMessage"
           class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-          <strong class="font-bold">Success!</strong>
+          <strong class="font-bold">Thành công!</strong>
           <span class="block sm:inline">{{ loginSuccessMessage }}</span>
         </div>
 
-        <!-- Thông báo đăng nhập thất bại -->
+        <!-- Thông báo thất bại -->
         <div *ngIf="loginErrorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert">
-          <strong class="font-bold">Error!</strong>
+          <strong class="font-bold">Lỗi!</strong>
           <span class="block sm:inline">{{ loginErrorMessage }}</span>
         </div>
       </div>
 
-      <!-- New Customer Section -->
+      <!-- Phần chưa có tài khoản -->
       <div class="w-1/2 bg-gray-100 p-8 flex flex-col justify-center items-center text-center">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">New Customer?</h2>
-        <p class="text-gray-600 mb-6">Creating an account has many benefits:</p>
+        <h2 class="text-2xl font-bold mb-6 text-gray-800">Chưa có tài khoản?</h2>
+        <p class="text-gray-600 mb-6">Tạo tài khoản mang lại nhiều lợi ích:</p>
 
         <ul class="text-gray-700 mb-6 list-disc list-inside text-left">
-          <li>Check out faster</li>
-          <li>Keep more than one address</li>
-          <li>Track orders and more</li>
+          <li>Thanh toán nhanh hơn</li>
+          <li>Lưu nhiều địa chỉ giao hàng</li>
+          <li>Theo dõi đơn hàng và nhiều hơn nữa</li>
         </ul>
+
         <button [routerLink]="['/', ROUTING.REGISTER_SCREEN]"
           class="bg-blue-600 text-white px-6 py-3 rounded-3xl hover:bg-blue-700 transition duration-300 cursor-pointer">
-          Create An Account
+          Tạo tài khoản
         </button>
       </div>
     </div>

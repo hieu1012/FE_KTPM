@@ -18,13 +18,17 @@
         <div class="grid grid-cols-6 gap-6 mt-4 mb-4">
             <div *ngFor="let product of listProducts">
                 <div [routerLink]="['/', ROUTING.DETAIL_PRODUCT, product.id]"
-                    class="flex flex-col h-full px-4 py-3 bg-stone-50 shadow-md cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-sky-500">
+                    class="flex flex-col h-full min-h-[300px] px-4 py-3 bg-stone-50 shadow-md cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-sky-500">
+
                     <!-- Trạng thái -->
-                    <p class="text-[10px] text-green-700"><i class="fa-solid fa-circle-check"></i> in stock</p>
+                    <p class="text-[10px] text-green-700">
+                        <i class="fa-solid fa-circle-check"></i> In stock
+                    </p>
 
                     <!-- Ảnh sản phẩm -->
                     <div class="flex justify-center items-center h-[120px] mt-2">
-                        <img class="max-h-full object-contain" [src]="product.images[0].url" alt="product" />
+                        <img class="max-h-full object-contain"
+                            [src]="product.images?.[0]?.url || 'assets/images/products/no-image.png'" alt="product" />
                     </div>
 
                     <!-- Đánh giá -->
@@ -33,22 +37,24 @@
                         <p class="text-xs text-zinc-600">Reviews (4)</p>
                     </div>
 
-                    <!-- Tên sản phẩm -->
-                    <p class="text-xs mt-2.5 line-clamp-2 ">{{ product.name }}</p>
+                    <!-- Nội dung chính và giá -->
+                    <div class="flex flex-col flex-1">
+                        <!-- Tên sản phẩm -->
+                        <p class="text-xs mt-2.5 line-clamp-2">{{ product.name }}</p>
 
-                    <!-- Thêm loại sản phẩm -->
-                    <p class="text-[11px] text-gray-500 mt-1">Category: {{ product.category?.name }}</p>
+                        <!-- Danh mục -->
+                        <p class="text-[11px] text-gray-500 mt-1">Danh mục: {{ product.category?.name }}</p>
 
-                    <!-- Thêm hãng sản xuất -->
-                    <p class="text-[11px] text-gray-500">Brand: {{ product.manufacture?.name }}</p>
+                        <!-- Hãng -->
+                        <p class="text-[11px] text-gray-500">Hãng: {{ product.manufacture?.name }}</p>
 
-
-                    <!-- Giá -->
-                    <!-- <p class="text-sm mt-2.5 line-through text-zinc-600">{{ product.originalPrice || product.price }}</p> -->
-
-                    <p class="text-base font-semibold mt-[4px]">
-                        {{ product.price | priceFormat }}<sup class="text-xs ml-0.5">đ</sup>
-                    </p>
+                        <!-- Giá ở cuối -->
+                        <div class="mt-auto pt-2">
+                            <p class="text-base font-semibold text-blue-600">
+                                {{ product.price | priceFormat }}<sup class="text-xs ml-0.5">đ</sup>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

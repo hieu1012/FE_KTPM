@@ -1,0 +1,140 @@
+<div class="px-40">
+    <!-- Tiêu đề danh mục -->
+    <div class="flex justify-between items-center py-6">
+        <h1 class="text-3xl font-bold text-gray-800">{{ category }}</h1>
+    </div>
+
+    <!-- Layout 2 cột -->
+    <div class="grid grid-cols-[260px_1fr] gap-8 items-start">
+
+        <!-- Bộ lọc bên trái -->
+        <aside class="bg-white text-black p-6 shadow-lg rounded-lg space-y-6">
+            <h2 class="text-xl font-semibold text-gray-800">Bộ lọc sản phẩm</h2>
+
+            <!-- Hãng sản xuất -->
+            <div>
+                <p class="text-sm font-semibold mb-2 text-gray-700">Hãng sản xuất</p>
+                <div class="space-y-1 max-h-[200px] overflow-y-auto pr-2">
+                    <label class="flex items-center space-x-2" *ngFor="let manu of manufactures">
+                        <input type="checkbox" [value]="manu.id" [(ngModel)]="selectedManufactures[manu.id]"
+                            (change)="onFilterChange()" />
+                        <span class="text-sm">{{ manu.name }}</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Khoảng giá -->
+            <div>
+                <p class="text-sm font-semibold mb-2 text-gray-700">Khoảng giá</p>
+                <select class="w-full border border-gray-300 rounded px-3 py-2 text-sm" [(ngModel)]="selectedPriceRange"
+                    (change)="onFilterChange()">
+                    <option [ngValue]="null">Tất cả</option>
+                    <option value="0-5000">Dưới 5 nghìn đồng</option>
+                    <option value="10000-15000">10 - 15 nghìn đồng</option>
+                    <option value="15000-20000">15 - 20 nghìn đồng</option>
+                    <option value="20000-100000">Trên 20 nghìn đồng</option>
+                </select>
+            </div>
+
+            <!-- Nút xóa bộ lọc -->
+            <button class="text-blue-600 text-sm underline hover:text-blue-800" (click)="clearFilters()">
+                Xóa tất cả bộ lọc
+            </button>
+        </aside>
+
+        <!-- Danh sách sản phẩm bên phải -->
+        <section class="flex flex-col gap-6">
+
+            <!-- Bộ sắp xếp -->
+            <div class="bg-white p-4 rounded-lg shadow flex flex-wrap items-center gap-4 sm:gap-6 md:gap-8">
+                <span class="text-sm font-semibold text-gray-700">Sắp xếp theo:</span>
+
+                <button class="cursor-pointer text-sm px-4 py-1.5 rounded-md font-medium transition-colors duration-200"
+                    [ngClass]="{
+      'bg-blue-100 text-blue-800 shadow-inner': sortOption === 'az',
+      'text-gray-600 hover:text-blue-600 hover:bg-gray-100': sortOption !== 'az'
+    }" (click)="setSort('az')">A - Z</button>
+
+                <button class="cursor-pointer text-sm px-4 py-1.5 rounded-md font-medium transition-colors duration-200"
+                    [ngClass]="{
+      'bg-blue-100 text-blue-800 shadow-inner': sortOption === 'za',
+      'text-gray-600 hover:text-blue-600 hover:bg-gray-100': sortOption !== 'za'
+    }" (click)="setSort('za')">Z - A</button>
+
+                <button class="cursor-pointer text-sm px-4 py-1.5 rounded-md font-medium transition-colors duration-200"
+                    [ngClass]="{
+      'bg-blue-100 text-blue-800 shadow-inner': sortOption === 'low-high',
+      'text-gray-600 hover:text-blue-600 hover:bg-gray-100': sortOption !== 'low-high'
+    }" (click)="setSort('low-high')">Giá thấp đến cao</button>
+
+                <button class="cursor-pointer text-sm px-4 py-1.5 rounded-md font-medium transition-colors duration-200"
+                    [ngClass]="{
+      'bg-blue-100 text-blue-800 shadow-inner': sortOption === 'high-low',
+      'text-gray-600 hover:text-blue-600 hover:bg-gray-100': sortOption !== 'high-low'
+    }" (click)="setSort('high-low')">Giá cao đến thấp</button>
+            </div>
+
+
+            <!-- Grid sản phẩm -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                <div *ngFor="let product of pagedProducts" [routerLink]="['/', ROUTING.DETAIL_PRODUCT, product.id]"
+                    class="flex flex-col h-full px-4 py-3 bg-stone-50 shadow-md cursor-pointer transition-transform duration-300 hover:scale-105 hover:shadow-sky-500">
+
+                    <!-- Trạng thái -->
+                    <p class="text-[10px] text-green-700">
+                        <i class="fa-solid fa-circle-check"></i> In stock
+                    </p>
+
+                    <!-- Ảnh sản phẩm -->
+                    <div class="flex justify-center items-center h-[120px] mt-2">
+                        <img class="max-h-full object-contain"
+                            [src]="product.images?.[0]?.url || 'assets/images/products/no-image.png'" alt="product" />
+                    </div>
+
+                    <!-- Đánh giá -->
+                    <div class="flex justify-between items-center mt-2">
+                        <img class="h-3" src="assets/images/products/star.png" alt="star" />
+                        <p class="text-xs text-zinc-600">Reviews (4)</p>
+                    </div>
+
+                    <!-- Nội dung chính -->
+                    <div class="flex flex-col flex-1">
+                        <!-- Tên sản phẩm -->
+                        <p class="text-xs mt-2.5 line-clamp-2">{{ product.name }}</p>
+
+                        <!-- Danh mục + Hãng -->
+                        <p class="text-[11px] text-gray-500 mt-1">Danh mục: {{ product.category?.name }}</p>
+                        <p class="text-[11px] text-gray-500">Hãng: {{ product.manufacture?.name }}</p>
+
+                        <!-- Giá ở dưới cùng -->
+                        <div class="mt-auto pt-2">
+                            <p class="text-base font-semibold text-blue-600">
+                                {{ product.price | priceFormat }}<sup class="text-xs ml-0.5">đ</sup>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Phân trang -->
+            <div class="flex justify-center gap-2 mt-6">
+                <button class="px-3 py-1 border rounded text-sm" [disabled]="currentPage === 1"
+                    (click)="onPageChange(currentPage - 1)">
+                    &laquo;
+                </button>
+                <button *ngFor="let page of [].constructor(totalPages); let i = index"
+                    class="px-3 py-1 border rounded text-sm" [class.bg-blue-600]="currentPage === i + 1"
+                    [class.text-white]="currentPage === i + 1" (click)="onPageChange(i + 1)">
+                    {{ i + 1 }}
+                </button>
+                <button class="px-3 py-1 border rounded text-sm" [disabled]="currentPage === totalPages"
+                    (click)="onPageChange(currentPage + 1)">
+                    &raquo;
+                </button>
+            </div>
+
+        </section>
+    </div>
+</div>

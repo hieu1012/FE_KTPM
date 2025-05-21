@@ -95,13 +95,46 @@
   <div class="main-header">
     <div class="flex">
       <img class="logo" src="assets/images/logo.png" alt="logo">
-      <ul class="nav-menu">
+      <!-- <ul class="nav-menu">
         <li [routerLink]="['/', ROUTING.HOME_SCREEN]" class="nav-item">Trang chủ<a href="" class="nav-link"></a></li>
-        <li class="nav-item">Laptop<a href="" class="nav-link"></a></li>
-        <li class="nav-item">Điện thoại<a href="" class="nav-link"></a></li>
-        <li class="nav-item">Linh kiện máy tính<a href="" class="nav-link"></a></li>
+        <li *ngFor="let category of categories" class="nav-item">
+          <a [routerLink]="['/', ROUTING.PRODUCT_CATEGORY, category.id]" class="nav-link">{{ category.name }}</a>
+        </li>
         <li [routerLink]="['/',ROUTING.ABOUT_SCREEN]" class="nav-item">Về chúng tôi<a href="" class="nav-link"></a></li>
+      </ul> -->
+      <ul class="nav-menu flex items-center gap-2">
+        <!-- Trang chủ -->
+        <li routerLinkActive="active" [routerLink]="['/', ROUTING.HOME_SCREEN]"
+          class="text-sm px-4 py-1.5 rounded-md font-semibold cursor-pointer transition-colors duration-200" [ngClass]="{
+      'bg-blue-100 text-blue-800': isActive('/' + ROUTING.HOME_SCREEN),
+      'text-gray-700 hover:text-blue-600 hover:bg-gray-100': !isActive('/' + ROUTING.HOME_SCREEN)
+    }">
+          Trang chủ
+        </li>
+
+        <!-- Danh mục -->
+        <li *ngFor="let category of categories" routerLinkActive="active">
+          <a [routerLink]="['/', ROUTING.PRODUCT_CATEGORY, category.id]"
+            class="text-sm px-4 py-1.5 rounded-md font-semibold cursor-pointer transition-colors duration-200"
+            [ngClass]="{
+        'bg-blue-100 text-blue-800': isActive('/' + ROUTING.PRODUCT_CATEGORY + '/' + category.id),
+        'text-gray-700 hover:text-blue-600 hover:bg-gray-100': !isActive('/' + ROUTING.PRODUCT_CATEGORY + '/' + category.id)
+      }">
+            {{ category.name }}
+          </a>
+        </li>
+
+        <!-- Về chúng tôi -->
+        <li routerLinkActive="active" [routerLink]="['/', ROUTING.ABOUT_SCREEN]"
+          class="text-sm px-4 py-1.5 rounded-md font-semibold cursor-pointer transition-colors duration-200" [ngClass]="{
+      'bg-blue-100 text-blue-800': isActive('/' + ROUTING.ABOUT_SCREEN),
+      'text-gray-700 hover:text-blue-600 hover:bg-gray-100': !isActive('/' + ROUTING.ABOUT_SCREEN)
+    }">
+          Về chúng tôi
+        </li>
       </ul>
+
+
     </div>
 
     <div class="icon-wrapper-and-avatar flex w-[250px] justify-between">

@@ -5,6 +5,9 @@ import { AuthService } from '@services/auth.service';
 import { NgIf } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 import { ClickOutsideDirective } from './click-outside.directive'
 
@@ -12,18 +15,25 @@ import { CategoryService } from '@services/category.service';
 
 @Component({
   selector: 'header',
-  imports: [RouterModule, NgIf, ClickOutsideDirective],
+  imports: [RouterModule, NgIf, ClickOutsideDirective, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, public router: Router, private authService: AuthService, private categoryService: CategoryService) { }
+
+
   ROUTING = ROUTING;
   user: any = null;
   isLoggedIn: boolean = false;
+  categories: any[] = [];
+
+  isActive(path: string): boolean {
+    return this.router.url === path;
+  }
 
   dropdownVisible: boolean = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private authService: AuthService) { }
 
   toggleDropdown(): void {
     this.dropdownVisible = !this.dropdownVisible;
@@ -48,8 +58,17 @@ export class HeaderComponent implements OnInit {
           console.error('Lỗi parse user từ localStorage:', error);
         }
       }
-
     }
+
+    // Lấy danh sách danh 
+    this.categoryService.getAllCategories().subscribe({
+      next: (response) => {
+        this.categories = response.data;
+      },
+      error: (error) => {
+        console.error('Lỗi khi lấy danh sách danh mục:', error);
+      }
+    });
   }
 
 

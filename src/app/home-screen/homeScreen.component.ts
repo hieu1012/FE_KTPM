@@ -60,10 +60,10 @@ export class HomeScreen implements OnInit {
 
   ngOnInit(): void {
     this.itemBanner = [...this.slides];
-    this.productService.getAllProducts().subscribe({
+    this.productService.getAllProducts(0, 12).subscribe({
       next: (response: any) => {
         this.listProducts = response;
-        console.log('Danh sách sản phẩm:', this.listProducts);
+        // console.log('Danh sách sản phẩm:', this.listProducts);
       },
       error: (error) => {
         console.error('Lỗi khi lấy danh sách sản phẩm:', error);

@@ -83,8 +83,6 @@ export class AuthService {
 
     register(email: string, password: string, fullName: string): Observable<any> {
         const body = { email, password, fullName };
-        alert('Đăng ký thành công');
-        this.router.navigate([ROUTING.LOGIN_SCREEN]);
         return this.http.post<any>(this.apiRegister, body);
     }
 

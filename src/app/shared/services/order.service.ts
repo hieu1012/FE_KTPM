@@ -43,5 +43,13 @@ export class OrderService { // Sửa tên class cho phù hợp với tên file
         return this.http.post<any>(`${this.apiUrlOrder}`, order);
     }
 
+    getAllOrders(): Observable<any> {
+        return this.http.get<any>(`${this.apiUrlOrder}`);
+    }
+
+    cancelOrder(orderId: any): Observable<any> {
+        // Truyền reason qua query parameter
+        return this.http.put(`${this.apiUrlOrder}/${orderId}/cancel?reason=Cancelled+by+user`, {});
+    }
 
 }

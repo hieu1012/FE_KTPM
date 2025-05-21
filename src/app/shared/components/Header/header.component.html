@@ -97,29 +97,50 @@
       <img class="logo" src="assets/images/logo.png" alt="logo">
       <ul class="nav-menu">
         <li [routerLink]="['/', ROUTING.HOME_SCREEN]" class="nav-item">Trang chủ<a href="" class="nav-link"></a></li>
-        <li class="nav-item">Máy tính để bàn<a href="" class="nav-link"></a></li>
-        <li class="nav-item">Thiết bị mạng<a href="" class="nav-link"></a></li>
+        <li class="nav-item">Laptop<a href="" class="nav-link"></a></li>
+        <li class="nav-item">Điện thoại<a href="" class="nav-link"></a></li>
         <li class="nav-item">Linh kiện máy tính<a href="" class="nav-link"></a></li>
-        <li class="nav-item">Sản phẩm khác<a href="" class="nav-link"></a></li>
         <li [routerLink]="['/',ROUTING.ABOUT_SCREEN]" class="nav-item">Về chúng tôi<a href="" class="nav-link"></a></li>
       </ul>
     </div>
 
-    <div class="icon-wrapper-and-avatar flex w-[270px] justify-between">
+    <div class="icon-wrapper-and-avatar flex w-[250px] justify-between">
       <div class="flex justify-between">
-        <i class="fa-solid fa-search icon"></i>
+        <div class="mr-[10px]">
+          <i class="fa-solid fa-search icon"></i>
+        </div>
         <button [routerLink]="['/', ROUTING.CART_SCREEN]">
           <i class="fa-solid fa-shopping-cart icon"></i>
         </button>
       </div>
 
       <!-- Đã đăng nhập -->
-      <div class="flex" *ngIf="isLoggedIn else loginRegister">
-        <button class="text-sm mx-1 cursor-pointer pl-2.5">
-          {{ user.fullName }}
-        </button>
-        <span class="text-stone-400 text-ms">|</span>
-        <button (click)="logout()" class="text-sm mx-1 cursor-pointer">Đăng xuất</button>
+      <div class="flex items-center" *ngIf="isLoggedIn else loginRegister">
+        <!-- Dropdown Toggle -->
+        <div class="dropdown-container" [class.dropdown-open]="dropdownVisible" (clickOutside)="closeDropdown()">
+          <!-- Toggle button với class mới -->
+          <button (click)="toggleDropdown()" class="dropdown-toggle">
+            {{ user.fullName }}
+            <i class="fa fa-chevron-down"></i>
+          </button>
+
+          <!-- Dropdown menu với class mới -->
+          <div class="dropdown-menu" [class.visible]="dropdownVisible">
+            <!-- <a class="dropdown-item" [routerLink]="['/', ROUTING.HOME_SCREEN]">
+              <i class="fa fa-user"></i>
+              Thông tin cá nhân
+            </a> -->
+            <a class="dropdown-item" [routerLink]="['/', ROUTING.HITORY_ORDER]">
+              <i class="fa fa-shopping-bag"></i>
+              Đơn hàng của tôi
+            </a>
+            <div class="dropdown-divider"></div>
+            <button (click)="logout()" class="dropdown-item danger">
+              <i class="fa fa-sign-out-alt"></i>
+              Đăng xuất
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Chưa đăng nhập -->

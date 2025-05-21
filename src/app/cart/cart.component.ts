@@ -65,7 +65,7 @@ export class CartComponent implements OnInit {
         this.shippingAddress = {
           fullName: this.user.fullName || '',
           phone: this.user.email || '',
-          address: ''
+          address: 'Thành phố Hồ Chí Minh',
         };
       } catch (error) {
         console.error('Lỗi parse user từ localStorage:', error);

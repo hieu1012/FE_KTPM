@@ -19,7 +19,7 @@ export class DetailProductComponent {
   product: any = null;
   quantity: number = 1;
   user: any = null;
-
+  currentImageIndex: number = 0; // Thêm biến này
   constructor(private route: ActivatedRoute, private router: Router, private productService: ProductService, private orderService: OrderService) {
     this.idProduct = Number(this.route.snapshot.paramMap.get('id'));
   }
@@ -49,6 +49,12 @@ export class DetailProductComponent {
         console.error('Lỗi khi lấy sản phẩm:', error);
       }
     });
+  }
+
+  changeImage(index: number): void {
+    if (index >= 0 && index < this.product.images.length) {
+      this.currentImageIndex = index;
+    }
   }
 
   // tăng giảm số lượng sản phẩm

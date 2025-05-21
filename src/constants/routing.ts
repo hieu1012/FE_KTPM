@@ -8,4 +8,5 @@ export const ROUTING = {
     CART_SCREEN: 'Cart',
     PAYMENT_SUCCESS: 'PaymentSuccess',
     PAYMENT_CANCEL: 'PaymentCancel',
+    HITORY_ORDER: 'HistoryOrder',
 }

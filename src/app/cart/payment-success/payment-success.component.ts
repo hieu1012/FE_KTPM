@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PaymentService } from '@services/paymment.service'; // kiểm tra lại tên file chính xác
 
 @Component({
   selector: 'app-payment-success',
@@ -6,24 +8,50 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-success.component.css']
 })
 export class PaymentSuccessComponent implements OnInit {
-  orderNumber: string = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
-  paymentDate: string = new Date().toLocaleDateString('vi-VN');
-  amount: string = '2.350.000 VNĐ';
-  paymentMethod: string = 'Thẻ tín dụng';
+  orderCode: string | null = null;
+  status: string | null = null;
+  transactionId: string | null = null;
 
-  constructor() { }
+  successMessage: string = '';
+  paymentDate: string = new Date().toLocaleDateString('vi-VN');
+  paymentMethod: string = 'Chuyển khoản'; // Hoặc giá trị mặc định phù hợp
+
+  constructor(
+    private route: ActivatedRoute,
+    private paymentService: PaymentService
+  ) { }
 
   ngOnInit(): void {
-    // Có thể nhận dữ liệu từ service hoặc route params ở đây
+    this.route.queryParamMap.subscribe(params => {
+      this.status = params.get('status');
+      this.orderCode = params.get('orderCode');
+      this.transactionId = params.get('id'); // mã giao dịch PayOS
+
+      if (this.status === 'PAID' && this.orderCode) {
+        this.successMessage = 'Giao dịch đã được xử lý thành công.';
+
+        // Gọi API cập nhật trạng thái đơn hàng
+        this.paymentService.updateStatusPayment(this.orderCode, this.status).subscribe({
+          next: (response) => {
+            console.log('Đã cập nhật trạng thái đơn hàng:', response);
+          },
+          error: (error) => {
+            console.error('Lỗi khi cập nhật trạng thái:', error);
+          }
+        });
+      } else {
+        this.successMessage = 'Không thể xác minh trạng thái thanh toán.';
+      }
+    });
   }
 
   goToOrderDetails(): void {
-    // Chuyển hướng tới trang chi tiết đơn hàng
-    console.log('Điều hướng đến trang chi tiết đơn hàng');
+    // this.router.navigate(['/order-detail', this.orderCode]);
+    console.log('Điều hướng đến chi tiết đơn hàng:', this.orderCode);
   }
 
   goToHomePage(): void {
-    // Chuyển hướng về trang chủ
-    console.log('Điều hướng về trang chủ');
+    // this.router.navigate(['/']);
+    console.log('Quay về trang chủ');
   }
 }

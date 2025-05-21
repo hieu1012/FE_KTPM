@@ -12,8 +12,8 @@
 
         <!-- New products -->
         <div class="flex justify-between">
-            <p class="text-base font-semibold">New Products</p>
-            <a class="text-sm underline text-blue-500" href="#">See All New Products</a>
+            <p class="text-base font-semibold">Sản phẩm mới</p>
+            <a class="text-sm underline text-blue-500" href="#">Xem tất cả sản phẩm mới</a>
         </div>
         <div class="grid grid-cols-6 gap-6 mt-4 mb-4">
             <div *ngFor="let product of listProducts">
@@ -24,7 +24,7 @@
 
                     <!-- Ảnh sản phẩm -->
                     <div class="flex justify-center items-center h-[120px] mt-2">
-                        <img class="max-h-full object-contain" [src]="product.image" alt="product" />
+                        <img class="max-h-full object-contain" [src]="product.images[0].url" alt="product" />
                     </div>
 
                     <!-- Đánh giá -->

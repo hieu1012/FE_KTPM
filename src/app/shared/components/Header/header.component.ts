@@ -6,10 +6,13 @@ import { NgIf } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
 
+import { ClickOutsideDirective } from './click-outside.directive'
+
+import { CategoryService } from '@services/category.service';
 
 @Component({
   selector: 'header',
-  imports: [RouterModule, NgIf],
+  imports: [RouterModule, NgIf, ClickOutsideDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -18,9 +21,17 @@ export class HeaderComponent implements OnInit {
   user: any = null;
   isLoggedIn: boolean = false;
 
-
+  dropdownVisible: boolean = false;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object, private authService: AuthService) { }
+
+  toggleDropdown(): void {
+    this.dropdownVisible = !this.dropdownVisible;
+  }
+
+  closeDropdown(): void {
+    this.dropdownVisible = false;
+  }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {

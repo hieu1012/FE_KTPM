@@ -63,7 +63,7 @@ export class HomeScreen implements OnInit {
     this.productService.getAllProducts().subscribe({
       next: (response: any) => {
         this.listProducts = response;
-        // console.log('Danh sách sản phẩm:', this.listProducts);
+        console.log('Danh sách sản phẩm:', this.listProducts);
       },
       error: (error) => {
         console.error('Lỗi khi lấy danh sách sản phẩm:', error);

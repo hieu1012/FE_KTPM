@@ -20,8 +20,8 @@ interface RequestLog {
 export class RateLimiterInterceptor implements HttpInterceptor {
     private requestQueue: Map<string, RequestLog> = new Map();
 
-    private readonly MAX_REQUESTS_PER_ENDPOINT = 100;
-    private readonly TIME_WINDOW_MS = 60000;
+    private readonly MAX_REQUESTS_PER_ENDPOINT = 10;
+    private readonly TIME_WINDOW_MS = 30000;
     private readonly MAX_RETRY_ATTEMPTS = 3;
     private readonly RETRY_DELAY_MS = 1000;
 

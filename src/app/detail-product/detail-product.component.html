@@ -411,7 +411,7 @@
         <div class="p-6">
             <div class="flex items-center mb-4">
                 <div class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 mr-4">
-                    <img [src]="product?.image" alt="{{product?.name}}" class="h-full w-full object-contain">
+                    <img [src]="product?.images?.[0]?.url" alt="{{product?.name}}" class="h-full w-full object-contain">
                 </div>
                 <div>
                     <h4 class="text-md font-medium text-gray-900">{{product?.name}}</h4>
